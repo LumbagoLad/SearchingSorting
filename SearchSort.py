@@ -11,6 +11,41 @@ def setupData():
     return dataSet
 
 def main():
+    def linSearch(search):
+        start = time.time()
+        found = [False]
+        for i in range(len(data)):
+            if int(search) == data[i]:
+                found[0] = True
+                found.append(i)
+        print(found)
+        if found[0] == True:   
+            for j in range(len(found)-1):
+                print(f"Found {search} at postition {found[j+1]}")
+                
+        else:
+                print(f"{search} not found")   
+        end = time.time()
+        print(end - start)    
+    def bubSort():
+        start = time.time()
+        swapped = True
+        while swapped == True:
+            swapped = False
+            for i in range(len(data)-1):
+                if data[i] > data[i + 1]:
+                    swapped = True
+                    temp = data[i + 1]
+                    data[i + 1] = data[i]
+                    data[i] = temp
+        print(data)
+        end = time.time()
+        print(end - start)
+    def insSort():
+        start = time.time()
+        for i in range(len(data)):
+            1
+
     data = setupData()
     while True:
         print("Choose an option")
@@ -19,23 +54,15 @@ def main():
         choice = int(input(">>>"))
         if choice == 1:
             print("Linear search")
-            found = [False]
-            search = input("Enter number to find: ")
-            for i in range(len(data)):
-                if int(search) == data[i]:
-                    found[0] = True
-                    found.append(i)
-            print(found)
-            if found[0] == True:   
-                for j in range(len(found)-1):
-                    print(f"Found {search} at postition {found[j+1]}")
-            else:
-                    print(f"{search} not found")
+            linSearch(input("Enter number to find: "))
+            
         elif choice == 2:
             print("Bubble sort")
-
+            bubSort()          
+                
         elif choice == 3:
             print("Insertion sort")
+            insSort()
         
         elif choice == 4:
             print("Binary search")
