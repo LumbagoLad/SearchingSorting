@@ -57,28 +57,31 @@ def main():
     def binSearch(search):
         start = time.time()
         first = 0
-        last = len(data-1)
+        last = len(data)-1
         mid = (first + last) // 2
         while data[mid] != search and first < last:
+            print(f"{first} {mid} {last}")
             mid = (first + last) // 2
             if search > mid:
-                start = mid
+                first = mid + 1
             else:
-                end = mid
-        if data == search:
+                last = mid
+            
+        if data[mid] == search:
             print("Found")
+            
         else:
             print("Not found")
                 
         end = time.time()
-        print(end - start)
+        input(end - start)
 
 
     data = setupData()
     while True:
         choice = 0
         print("Choose an option")
-        print("\n1. Linear search\n2. Bubble sort\n3. Insertion sort\n4. Binary search\n4. Binary search\n5. Quicksort\n6. View data\n7. New data\n8. Quit")
+        print("\n1. Linear search\n2. Bubble sort\n3. Insertion sort\n4. Binary search\n5. Quicksort\n6. View data\n7. New data\n8. Quit")
         
         try:
             choice = int(input(">>>"))
@@ -95,11 +98,11 @@ def main():
                 
         elif choice == 3:
             print("Insertion sort")
-            insSort(int(input("Enter number to find: ")))
+            insSort()
         
         elif choice == 4:
             print("Binary search")
-            binSearch(int(input(search)))
+            binSearch(int(input("Enter number to find: ")))
 
         elif choice == 5:
             print("Quicksort")
