@@ -3,7 +3,10 @@ import time
 
 def setupData():
     dataSet = []
-    numElements = int(input("Enter number of items to sort: "))
+    try:
+        numElements = int(input("Enter number of items to sort: "))
+    except ValueError:
+        numElements = 100
     for i in range (0, numElements):
         dataSet.append(random.randint(0, 200))
     print("\nData set generated")
@@ -38,20 +41,50 @@ def main():
                     temp = data[i + 1]
                     data[i + 1] = data[i]
                     data[i] = temp
-        print(data)
         end = time.time()
         print(end - start)
     def insSort():
         start = time.time()
-        for i in range(len(data)):
-            1
+        for i in range(1, len(data)):
+            temp = data[i]
+            pos = i - 1
+            while pos >= 0 and data[pos] > temp:
+                data[pos + 1] = data[pos]
+                pos = pos-1
+            data[pos + 1] = temp
+        end = time.time()
+        print(end - start)
+    def binSearch(search):
+        start = time.time()
+        first = 0
+        last = len(data-1)
+        mid = (first + last) // 2
+        while data[mid] != search and first < last:
+            mid = (first + last) // 2
+            if search > mid:
+                start = mid
+            else:
+                end = mid
+        if data == search:
+            print("Found")
+        else:
+            print("Not found")
+                
+        end = time.time()
+        print(end - start)
+
 
     data = setupData()
     while True:
+        choice = 0
         print("Choose an option")
-        print("\n1. Linear search\n2. Bubble sort\n3. Insertion sort\n4. Binary search\n4. Binary search\n5. Quicksort\n6. View data\n7. Quit")
+        print("\n1. Linear search\n2. Bubble sort\n3. Insertion sort\n4. Binary search\n4. Binary search\n5. Quicksort\n6. View data\n7. New data\n8. Quit")
+        
+        try:
+            choice = int(input(">>>"))
+        except ValueError:
+            break 
 
-        choice = int(input(">>>"))
         if choice == 1:
             print("Linear search")
             linSearch(input("Enter number to find: "))
@@ -62,17 +95,21 @@ def main():
                 
         elif choice == 3:
             print("Insertion sort")
-            insSort()
+            insSort(int(input("Enter number to find: ")))
         
         elif choice == 4:
             print("Binary search")
+            binSearch(int(input(search)))
 
         elif choice == 5:
             print("Quicksort")
 
         elif choice == 6:
             print("View data")
-
+            print(data)
+            input()
+        elif choice == 7:
+            data = setupData()
         else:
             break
 
