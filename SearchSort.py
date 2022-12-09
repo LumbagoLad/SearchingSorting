@@ -4,7 +4,7 @@ import time
 def setupData():
     dataSet = []
     try:
-        numElements = int(input("Enter number of items to sort: "))
+        numElements = int(input("Enter number of items for data set: "))
     except ValueError:
         #this is here so i can quickly generate new arrays for testing
         numElements = 100
@@ -99,8 +99,8 @@ def partion(data, start, end):
 
 def main():
     
-
     data = setupData()
+    sorted = False
     while True:
         choice = 0
         print("Choose an option")
@@ -128,6 +128,7 @@ def main():
 
             t_end = time.time()
             print(t_end - t_start)
+            sorted = True
 
         elif choice == 3:
             print("Insertion sort")
@@ -137,9 +138,14 @@ def main():
 
             t_end = time.time()
             print(t_end - t_start)
+            sorted = True
 
         elif choice == 4:
             print("Binary search")
+            if sorted == False:
+                quickSort(data, 0, len(data)-1)
+                sorted = True
+                #If the data is not sorted, it will sort itself by itself!!
             inp = int(input("Enter number to find: "))
             t_start = time.time()
 
@@ -165,6 +171,14 @@ def main():
         elif choice == 7:
             #just good for testing
             data = setupData()
+            sorted = False
+            
+        #elif choice == 8:
+            #some sort of compare code
+            #user enters two things to compare the time of
+            #would allow them to enter number of times to compare and output total and average for each
+            
+            #not enough time to do currently but maybe later
         else:
             break
 
