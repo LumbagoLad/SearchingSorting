@@ -17,6 +17,7 @@ def setupData():
 
 def linSearch(data, search):
     found = [False]
+    #goes through each item to check if it is the same as search
     for i in range(len(data)):
         if int(search) == data[i]:
             found[0] = True
@@ -24,6 +25,7 @@ def linSearch(data, search):
     print(found)
     if found[0] == True:   
         for j in range(len(found)-1):
+            #for every item found it will print found at each posistion
             print(f"Found {search} at postition {found[j+1]}")
             #i love f strings   
     else:
@@ -72,24 +74,22 @@ def binSearch(data, search):
 def quickSort(data, start, end):
     if start < end:
         p = partion(data, start, end)
+        #p is the index of partition
         quickSort(data, start, p - 1)
+        #sorts before
         quickSort(data, p + 1, end)
+        #sorts after
 
 
 def partion(data, start, end):
     pivot = data[end]
     i = start - 1
-    for j in range(start, end-1):
+    for j in range(start, end - 1):
         if data[j] < pivot:
-            i = i + 1
+            i += 1
             #swaps i and j
-            temp = data[j]
-            data[j] = data[i]
-            data[i] = temp
-    #also swaps
-    temp = data[end]
-    data[end] = data[i + 1]
-    data[i + 1] = temp
+            data[i], data[j] = data[j], data[i]
+    data[end], data[i + 1] = data[i + 1], data[end]
     return i + 1
 
 
@@ -113,12 +113,22 @@ def main():
 
         if choice == 1:
             print("Linear search")
-            t_start = time.time()
+            
 
-            linSearch(data, inp)
+            try:  
+                inp = int(input("Enter number to find: "))
 
-            t_end = time.time()
-            print(t_end - t_start)
+                t_start = time.time()
+
+                linSearch(data, inp)
+
+                t_end = time.time()
+                input(t_end - t_start)
+
+            except ValueError:
+                input("No number entered")
+            
+            
 
         elif choice == 2:
             print("Bubble sort")
@@ -127,7 +137,7 @@ def main():
             bubSort(data)      
 
             t_end = time.time()
-            print(t_end - t_start)
+            input(t_end - t_start)
             sorted = True
 
         elif choice == 3:
@@ -137,36 +147,44 @@ def main():
             insSort(data)
 
             t_end = time.time()
-            print(t_end - t_start)
+            input(t_end - t_start)
             sorted = True
+            
 
         elif choice == 4:
             print("Binary search")
             if sorted == False:
-                quickSort(data, 0, len(data)-1)
+                quickSort(data, 0, len(data) - 1)
                 sorted = True
                 #If the data is not sorted, it will sort itself by itself!!
-            inp = int(input("Enter number to find: "))
-            t_start = time.time()
+            try:  
+                inp = int(input("Enter number to find: "))
 
-            binSearch(data, inp)
+                binSearch(data, inp)
 
-            t_end = time.time()
-            print(t_end - t_start)            
+                t_end = time.time()
+                input(t_end - t_start)  
+                
+
+            except ValueError:
+                input("No number entered")
+                          
 
         elif choice == 5:
             print("Quicksort")
             t_start = time.time()
 
+            quickSort(data, 0, len(data) - 1)
             quickSort(data, 0, len(data)-1)
+            #works if ran twice?? sometimes????
 
             t_end = time.time()
-            print(t_end - t_start)
+            input(t_end - t_start)
 
         elif choice == 6:
             print("View data")
-            print(data)
-            input()
+            input(data)
+
         
         elif choice == 7:
             #just good for testing
