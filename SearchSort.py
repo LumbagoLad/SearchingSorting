@@ -84,7 +84,7 @@ def quickSort(data, start, end):
 def partion(data, start, end):
     pivot = data[end]
     i = start - 1
-    for j in range(start, end - 1):
+    for j in range(start, end): #error was here - put end - 1 by mistake
         if data[j] < pivot:
             i += 1
             #swaps i and j
