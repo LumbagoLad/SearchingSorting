@@ -1,6 +1,7 @@
 import random
 import time
 
+#O(n)
 def setupData():
     dataSet = []
     try:
@@ -14,7 +15,7 @@ def setupData():
     print(dataSet)
     return dataSet
 
-
+#O(n)
 def linSearch(data, search):
     found = [False]
     #goes through each item to check if it is the same as search
@@ -31,6 +32,7 @@ def linSearch(data, search):
     else:
             print(f"{search} not found")    
 
+#O(n^2)
 def bubSort(data):
     swapped = True
     while swapped == True:
@@ -38,39 +40,43 @@ def bubSort(data):
         for i in range(len(data)-1):
             if data[i] > data[i + 1]:
                 swapped = True
-                #is there an easier way to swap?
-                temp = data[i + 1]
-                data[i + 1] = data[i]
-                data[i] = temp
-
+                #changed swap code to something more pythonic
+                data[i + 1], data[i] = data[i], data[i + 1]
+                
+#O(n^2)
 def insSort(data):
     for i in range(1, len(data)):
         temp = data[i]
         pos = i - 1
         while pos >= 0 and data[pos] > temp:
+            #loops until the data being added to sorted portion is in right place
             data[pos + 1] = data[pos]
             pos = pos-1
         data[pos + 1] = temp
 
+#O(log n)
 def binSearch(data, search):
     low = 0
-    low = len(data)-1
+    high = len(data)-1
     mid = 0    
-    while low <= low:
-        mid = (low + low) // 2
+    while low <= high:
+        mid = (low + high) // 2
         if search > data[mid]:
             low = mid + 1
+            #if the search is greater than the first half, it will discard that half
         elif search < data[mid]:
-            low = mid - 1   
+            high = mid - 1   
+            #if the search is less than the later half, it will discard that half
         else:
             print("found")
             return      
     if data[mid] == search:
         print(f"Found {search} at position {mid}")
-        #I love f strings still  
+
     else:
         print("Not found")
 
+#O(n^2) for worst case
 def quickSort(data, start, end):
     if start < end:
         p = partion(data, start, end)
@@ -79,7 +85,6 @@ def quickSort(data, start, end):
         #sorts before
         quickSort(data, p + 1, end)
         #sorts after
-
 
 def partion(data, start, end):
     pivot = data[end]
@@ -91,11 +96,6 @@ def partion(data, start, end):
             data[i], data[j] = data[j], data[i]
     data[end], data[i + 1] = data[i + 1], data[end]
     return i + 1
-
-
-
-
-
 
 def main():
     
@@ -159,6 +159,7 @@ def main():
                 #If the data is not sorted, it will sort itself by itself!!
             try:  
                 inp = int(input("Enter number to find: "))
+                t_start = time.time()
 
                 binSearch(data, inp)
 
@@ -175,8 +176,6 @@ def main():
             t_start = time.time()
 
             quickSort(data, 0, len(data) - 1)
-            quickSort(data, 0, len(data)-1)
-            #works if ran twice?? sometimes????
 
             t_end = time.time()
             input(t_end - t_start)
